@@ -1,0 +1,43 @@
+{
+  "name": "code-parser-web",
+  "version": "1.0.0",
+  "description": "A simple web UI interface for the Solidity Code Parser using node/express ",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "Solidity",
+    "Ethereum",
+    "Design",
+    "flaws",
+    "Testing",
+    "Node",
+    "Express",
+    "Truffle"
+  ],
+  "author": "Sheldon James Cameron",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.1",
+    "bootstrap-vue": "^2.18.1",
+    "chalk": "^4.1.0",
+    "chart.js": "^2.9.3",
+    "chartjs-plugin-datalabels": "^0.7.0",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "jsonexport": "^3.0.1",
+    "multer": "^1.4.2",
+    "popper.js": "^1.16.1",
+    "strip-ansi": "^6.0.0",
+    "vue": "^2.6.11",
+    "vue-axios": "^2.1.5",
+    "vue-chartjs": "^3.5.1"
+  }
+}

@@ -1,0 +1,65 @@
+{
+    "Statements" : {
+        "Assignment" : "Assignment",
+        "BinaryOperation" : "BinaryOperation",
+        "ContractDefinition" : "ContractDefinition",
+        "MemberAccess" : "MemberAccess",
+        "Identifier" : "Identifier",
+        "DoWhileStatement" : "DoWhileStatement",
+        "EnumDefinition" : "EnumDefinition",
+        "ForStatement" : "ForStatement",
+        "FunctionCall"  : "FunctionCall",
+        "Return" : "Return",
+        "FunctionDefinition" : "FunctionDefinition",
+        "IfStatement" : "IfStatement",
+        "ElseIfStatement" : "ElseIfStatement",
+        "ElseStatement" : "ElseStatement",
+        "ModifierDefinition" : "ModifierDefinition",
+        "VariableDeclaration"  : "VariableDeclaration",
+        "VariableDeclarationStatement"  : "VariableDeclarationStatement",
+        "WhileStatement" : "WhileStatement",
+        "TryCatchStatement" : "TryCatchStatement"
+    },
+
+    "GlobalVar": {
+        "Block" : "Block.",
+        "BlockTimestamp" : "Block.timestamp",
+        "BlockNumber" : "Block.number",
+        "BlockCoinBase" : "Block.coinbase",
+        "BlockDifficulty" : "Block.difficulty",
+        "BlockGasLimit" : "Block.gaslimit",
+        "MsgData" : "Msg.data",
+        "MsgSender" : "Msg.sender",
+        "MsgValue": "Msg.value",
+        "Now": "now", 
+        "TxOrigin": "Tx.origin"
+    },
+
+    "Opcode" : {
+        "Assert" : "Assert",
+        "Balance" : "Balance",
+        "Call" : "Call",
+        "CallCode" : "Callcode",
+        "DelegateCall" : "DelegateCall",
+        "Require" : "Require",
+        "Revert" : "Revert",
+        "SelfDestruct" : "Selfdestruct",
+        "Send" : "Send",
+        "StaticCall" : "Staticcall",
+        "Transfer" : "Transfer",
+        "Blockhash": "Blockhash"
+    },
+    
+    "TypeIdentifier" : {
+        "Call" : "t_function_barecall_payable",
+        "Revert" : "t_function_revert_pure",
+        "Send" : "t_function_send_nonpayable",
+        "DelegateCall" : "t_function_baredelegatecall_nonpayable",
+        "Transfer" : "t_function_transfer_nonpayable",
+        "Require" : "t_function_require_pure",
+        "Block" : "t_magic_block",
+        "Msg" : "t_magic_message",
+        "Tx" : "t_magic_transaction",
+        "Blockhash": "t_function_blockhash"
+    }
+}

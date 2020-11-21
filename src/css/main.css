@@ -1,0 +1,18 @@
+.popover-body > .badge {
+    margin: .25em;
+    white-space: normal;
+    text-align: justify;
+    font-size: 85%;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.cell-hover > tbody td:hover {
+  background-color: rgba(0,0,0,.075);
+}
+
+.table-hover > tbody tr:hover > td {
+  background-color: rgba(0,0,0,.075);
+}
