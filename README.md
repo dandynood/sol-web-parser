@@ -1,6 +1,6 @@
 # Solidity Code Parser
 
-## Important: This project is stil under construction and will be updated soon 
+## Important: This project is still under construction and will be updated soon 
 
 A simple single page web application aim to test for common design flaws in Solidity contracts. Built with Vue (browser style), Node.js Express, Bootstrap and utilizing the Truffle framework. 
 
