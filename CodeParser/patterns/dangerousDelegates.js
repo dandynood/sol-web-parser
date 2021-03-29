@@ -4,11 +4,11 @@ var dictionary = require("../dictionary.json");
 const chalk = require('chalk');
 const okay = chalk.green;
 const error = chalk.red;
-/*
-    Dangerous Delegates are when a contract over relies on "delegatecalls" specifically. This is means relying on -
-    delegatecalls ONLY for Ether manipulation, which involves dependency on external code (external libraries) to perform critical actions.
+/*  Dangerous Delegates V1, Last updated: 29/12/2020
+    Dangerous Delegates are when a contract over relies on external contracts (like a co-dependency relationship) and "delegatecalls". This is means relying on -
+    delegatecalls or external entities ONLY for Ether manipulation or other critical tasks, as it involves dependency on external functions outside of the control sphere
 
-    This is problematic as relying on delegatecalls can lead to:
+    Problematic reliance on delegatecalls can lead to:
     1) frozen ether liquidity as the external delegate code or library may change or be destroyed 
     2) calling any other unsecured public function if the delegatecall uses msg.data as an argument
 
@@ -48,7 +48,8 @@ module.exports = {
         checks: [
             dictionary.Opcode.Require,
             dictionary.Statements.IfStatement,
-            dictionary.Statements.ElseIfStatement
+            dictionary.Statements.ElseIfStatement,
+            dictionary.Statements.Return
         ]
     },
     /*2 Define the necessary flags we need for testing */
@@ -63,15 +64,21 @@ module.exports = {
             //if we find any interaction statement, save it for later
             if(this.order.interactions.includes(sequence[i].nodeType)) { 
                 statement.interaction = sequence[i];
+                statement.nodeType = sequence[i].nodeType;
+                statement.arguments = sequence[i].arguments;
                 statement.functionName = functionName;
                 this.interactions.push(statement);
             }
-            //check if the interaction exist in an assignment statement
+            //check if the interaction exist in an assignment/variable declaration statement/tuple expression
             if(sequence[i].initialValue) {
-                if(this.order.interactions.includes(sequence[i].initialValue)) { 
-                    statement.interaction = sequence[i];
-                    statement.functionName = functionName;
-                    this.interactions.push(statement);
+                for(let ii=0;ii<sequence[i].initialValue.length; ii++) {
+                    if(this.order.interactions.includes(sequence[i].initialValue[ii].condition)) { 
+                        statement.interaction = sequence[i];
+                        statement.nodeType = sequence[i].initialValue[ii].condition;
+                        statement.arguments = sequence[i].initialValue[ii].arguments;
+                        statement.functionName = functionName;
+                        this.interactions.push(statement);
+                    }
                 }
             }
             //if the interaction is an argument for require/if
@@ -80,9 +87,16 @@ module.exports = {
                 let conditions = sequence[i].conditions;
                 for(let cond = 0; cond < conditions.length; cond++){
                     if((conditions[cond].condition && this.order.interactions.includes(conditions[cond].condition)) || 
-                    (conditions[cond].left && this.order.interactions.includes(conditions[cond].left))) {
+                    (conditions[cond].left && this.order.interactions.includes(conditions[cond].left)) ||
+                    (conditions[cond].right && this.order.interactions.includes(conditions[cond].right))) {
                         statement.interaction = sequence[i];
                         statement.functionName = functionName;
+                        statement.nodeType = (this.order.interactions.includes(conditions[cond].condition) ? conditions[cond].condition 
+                        : this.order.interactions.includes(conditions[cond].left) ? conditions[cond].left 
+                        : this.order.interactions.includes(conditions[cond].right) ? conditions[cond].right : "");
+                        statement.arguments = (this.order.interactions.includes(conditions[cond].condition) ? conditions[cond].arguments 
+                        : this.order.interactions.includes(conditions[cond].left) ? conditions[cond].leftArguments 
+                        : this.order.interactions.includes(conditions[cond].right) ? conditions[cond].rightArguments : "");
                         this.interactions.push(statement);
                     }
                 }
@@ -96,10 +110,6 @@ module.exports = {
             //if any ifstatements are found via truebody, unpack. Also note as it is a found check
             if(sequence[i].trueBody){
                 this.findInteractions(sequence[i].trueBody,functionName);
-                if(sequence[i].falseBody) {
-                    let elseIf = [sequence[i].falseBody];
-                    this.findInteractions(elseIf,functionName);
-                }
             }
         }
     },
@@ -109,11 +119,11 @@ module.exports = {
     foundDelegateCall: false,
     determineLiquidity : function(interactions) {
         for(let i = 0; i < interactions.length; i++) {
-            //if we find at least one interaction not that of DelegateCall, we can say there is other opcodes being used. 
-            if(this.order.interactions.includes(interactions[i].interaction.nodeType) && interactions[i].interaction.nodeType !== dictionary.Opcode.DelegateCall) {
+            if(this.order.interactions.includes(interactions[i].nodeType) && interactions[i].nodeType !== dictionary.Opcode.DelegateCall) {
                 this.noOtherOpcodes = false;
             }
-            if(interactions[i].interaction.nodeType === dictionary.Opcode.DelegateCall) {
+
+            if(interactions[i].nodeType === dictionary.Opcode.DelegateCall) {
                 this.foundDelegateCall = true;
             }
         }
@@ -124,29 +134,17 @@ module.exports = {
     //Access each interaction and their details via interactions[i].interaction (and arguments as arguments[i].condition)
     //Add all delegateCalls into this.delegateCalls array, each one with a msgDataUsed flag
     msgDataUsed : 0,
-    determineDelegatecallArguments : function(interactions) {
-        for(let i = 0; i < interactions.length; i++) {
-            //if we find any delegatecall with problematic arguments like msg.data, it can be considered a problem
-            if(interactions[i].interaction.nodeType === dictionary.Opcode.DelegateCall) {
-                this.scoreLimit += 1; //count and add based on how many delegateCalls
-                for(let arg = 0; arg < interactions[i].interaction.arguments.length; arg++) {
-                    let argument = interactions[i].interaction.arguments[arg];
-                    if(argument.condition === dictionary.GlobalVar.MsgData) {
-                        this.delegateCallMsgData.push(interactions[i].interaction);
-                        this.msgDataUsed++;
-                    }
-                }
-            }
-
-            //If the interaction is within an assignment (initialValue)
-            if(interactions[i].interaction.initialValue && interactions[i].interaction.initialValue === dictionary.Opcode.DelegateCall) {
-                this.scoreLimit += 1; //count and add based on how many delegateCalls
-                for(let arg = 0; arg < interactions[i].interaction.arguments.length; arg++) {
-                    let argument = interactions[i].interaction.arguments[arg];
-                    if(argument.condition === dictionary.GlobalVar.MsgData) {
-                        this.delegateCallMsgData.push(interactions[i].interaction);
-                        this.msgDataUsed++;
-                    }
+    delegateCallUsed: 0,
+    determineDelegatecallArguments : function(interaction) {
+        //if we find any delegatecall with problematic arguments like msg.data, it can be considered a problem
+        if(interaction.nodeType === dictionary.Opcode.DelegateCall) {
+            this.scoreLimit += 1; //count and add based on how many delegateCalls
+            this.delegateCallUsed += 1;
+            for(let arg = 0; arg < interaction.arguments.length; arg++) {
+                let argument = interaction.arguments[arg];
+                if(argument.condition === dictionary.GlobalVar.MsgData) {
+                    this.delegateCallMsgData.push(interaction);
+                    this.msgDataUsed++;
                 }
             }
         }
@@ -154,28 +152,41 @@ module.exports = {
 
     /*4 Determine the ordering of each code block's stack. Increment the score by 1 when one violation is found per "interactions-effects" sequence*/
     determineOrderAndScore: function (functionsToTest, isPayable) {
+        let liquidity = "";
         //Find interactions first before test
         for(let i=0; i < functionsToTest.length; i++) {   
             this.findInteractions(functionsToTest[i].sequence, functionsToTest[i].name);
         }
 
-        //Test 1), noOtherOpcodes = true or false. Only test if the contract is payable
         if(isPayable) {
-            this.determineLiquidity(this.interactions); //if no interactions, noOtherOpcodes will remain true
-            if(this.noOtherOpcodes) {
+            if(this.interactions.length > 0 ) {
+                //Test 1), noOtherOpcodes = true or false. Only test if the contract is payable
+                this.determineLiquidity(this.interactions); 
+                if(this.noOtherOpcodes) {
+                    liquidity = "Risky";
+                    this.score++;
+                    functionsToTest.dangerousDelegates.messages.push({type: "error", msg: error("This payable contract could be an Ether sink due to no plain transfer interactions (delegateCalls don't ensure liquidity).")});
+                } else {
+                    liquidity = "Safe";
+                    functionsToTest.dangerousDelegates.messages.push({type: "okay", msg: okay("This payable contract has some basic interactions for liquidity (reachability is not determined yet).")});
+                }
+            //no interactions yet it is payable?
+            } else if(this.noOtherOpcodes) {
+                liquidity = "Risky";
                 this.score++;
-                functionsToTest.dangerousDelegates.messages.push({type: "error", msg: error("This payable contract could be an Ether sink due to no common interactions (delegateCalls don't ensure liquidity).")});
-            } else {
-                functionsToTest.dangerousDelegates.messages.push({type: "okay", msg: okay("This payable contract has some basic interactions for liquidity (reachability is not determined yet).")});
-            } 
+                functionsToTest.dangerousDelegates.messages.push({type: "okay", msg: error("This contract has no plain transfer interactions yet it is payable.")});
+            }
         } else {
+            liquidity = "No payable keywords";
             functionsToTest.dangerousDelegates.messages.push({type: "okay", msg: okay("This contract is not payable, hence liquidity is not necessary.")});
             this.scoreLimit--; //if the contract is not payable then the first test is unnecessary to be part of the score
         }
 
         //Test 2) if a number of delegateCalls uses Msg.data, count and add to the score.
         if(this.foundDelegateCall) {
-            this.determineDelegatecallArguments(this.interactions);
+            for(let int=0;int < this.interactions.length;int++) {
+                this.determineDelegatecallArguments(this.interactions[int]);
+            }
             if(this.msgDataUsed > 0) {
                 this.score += this.msgDataUsed;
                 functionsToTest.dangerousDelegates.messages.push({type: "error", msg: error("This contract contains delegateCalls with a msg.data argument. Avoid using to prevent unintentionally calling other function signatures.\n")});
@@ -189,7 +200,11 @@ module.exports = {
         functionsToTest.dangerousDelegates.score = this.score;
         functionsToTest.dangerousDelegates.scoreLimit = this.scoreLimit;
         functionsToTest.dangerousDelegates.noOtherOpcodes = this.noOtherOpcodes;
+        functionsToTest.dangerousDelegates.isPayable = isPayable;
+        functionsToTest.dangerousDelegates.liquidity = liquidity; //for the browser interface to display on the table
         functionsToTest.dangerousDelegates.delegateCallMsgData = this.delegateCallMsgData;
+        functionsToTest.dangerousDelegates.msgDataUsed = this.msgDataUsed;
+        functionsToTest.dangerousDelegates.delegateCallUsed = this.delegateCallUsed;
     },  
 
     //Main function to be called by proof-read.js to test
@@ -204,6 +219,7 @@ module.exports = {
         this.score = 0;
         this.scoreLimit = 1;
         this.noOtherOpcodes = true;
+        this.delegateCallUsed = 0;
         //Test the all functions in the contract for any dangerous delegate practices
         this.determineOrderAndScore(functionsToTest, isPayable);
         //assign the results to the given functionAST object from proof-read.js

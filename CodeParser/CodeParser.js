@@ -7,8 +7,9 @@ const error = chalk.bold.red;
 const warning = chalk.keyword('orange');
 const contractDir = './build/contracts/';
 
-/*
-    Returned test results currently follows this structure:
+/*  Code Parser controller V1, Last updated: 29/12/2020
+    Initial controller to load the extractor and proof-reader modules
+    Returned test results to the browser interface, currently follows this structure:
     result = {
         name: "..."
         payable: bool
@@ -28,7 +29,7 @@ const contractDir = './build/contracts/';
 */
 module.exports = {
     main: function (contractName = "") {
-        let extractor = require("./extract.js");
+        let extractorV2 = require("./extractV2.js");
         let proofReader = require("./proof-read.js");
         /*1. Parse arguments */
         if (contractName.length < 1) {
@@ -47,7 +48,7 @@ module.exports = {
         let functionName = "";
         let contractAST = {};
         let result = {};
-        contractAST = extractor.extraction(contractName, functionName);
+        contractAST = extractorV2.extraction(contractName, functionName);
 
         /*4. Use proof-reader module*/
         result = proofReader.proofRead(contractAST);

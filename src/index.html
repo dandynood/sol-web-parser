@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-sm">
         <h1>Solidity Code Parser</h1>
-        <small class="text-muted">A source code parser to determine possible design flaws within the design</small>
+        <small class="text-muted">A source code parser to determine possible design flaws within Solidity contracts</small>
         <hr />
       </div>
     </div>
@@ -75,20 +75,14 @@
     </div>
     <br/>
 
+    <!--Simple div to show current status (compiling, testing, etc..)-->
     <div class="row">
       <div class="col-sm">
-        <strong>Output:
+        <strong>Status:
           <pre><code>{{consoleOutput}}</code></pre>
         </strong>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-sm">
-        <strong>Contract: <code>{{selectedContract}}</code></strong>
-      </div>
-    </div>
-    <br />
 
     <!--Result tab to show/hide the graph/table views for a individual select test-->
     <div class="row" v-if="isIndividualTest">
@@ -99,6 +93,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" :class="{active: resultView=='Graph'}" @click="resultView='Graph'">Graphical view</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" :class="{active: resultView=='Code'}" @click="resultView='Code'">Code view</a>
           </li>
         </ul>
       </div>
@@ -128,21 +125,30 @@
             <table class="table cell-hover">
               <thead>
                 <tr>
-                  <th scope="col">Function</th>
+                  <th scope="col">Function  
+                    <label class="form-check-label" for="showPositives"><small>Show Positives Only</small></label>
+                    <input type="checkbox" name="showPositives" :checked="showPositives" @input="showPositives = $event.target.checked"> 
+                  </th>
                   <th scope="col">Unsecured calls</th>
                   <th scope="col">Mishandled Exceptions</th>
                   <th scope="col">Over-dependency</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="func in testResults.functions">
+                <tr v-for="func in filteredFunctions(testResults.functions)">
                   <th scope="row"><code>{{func.name}}</code></th>
                   <td tabindex="0" role="button" v-popover:right="getMessages(func.unsecuredCalls.messages)" :class="colorBasedonTest(func.unsecuredCalls.score, func.unsecuredCalls.scoreLimit)">{{func.unsecuredCalls.score}} / {{func.unsecuredCalls.scoreLimit}}</td>
                   <td tabindex="0" role="button" v-popover:right="getMessages(func.mishandledErrors.messages)" :class="colorBasedonTest(func.mishandledErrors.score, func.mishandledErrors.scoreLimit)">{{func.mishandledErrors.score}} / {{func.mishandledErrors.scoreLimit}}</td>
-                  <td tabindex="0" role="button" v-popover:right="getMessages(func.overDependency.messages)" :class="colorBasedonTest(func.overDependency.score, func.overDependency.scoreLimit)">{{func.overDependency.score}} / {{func.overDependency.scoreLimit}}</td>
+                  <td tabindex="0" role="button" v-popover:right="getMessages(func.overDependency.messages)" :class="colorBasedonTest(func.overDependency.score, func.overDependency.scoreLimit)">{{func.overDependency.score}}</td>
                 </tr>
               </tbody>
               <tfoot>
+                <tr>
+                  <th scope="row">Total cases:</th>
+                  <td :class="colorBasedonTest(testResults.totalCases.unsecuredCalls.score)"><strong>{{testResults.totalCases.unsecuredCalls.score}} / {{testResults.totalCases.unsecuredCalls.scoreLimit}}</strong></td>
+                  <td :class="colorBasedonTest(testResults.totalCases.mishandledErrors.score)"><strong>{{testResults.totalCases.mishandledErrors.score}} / {{testResults.totalCases.mishandledErrors.scoreLimit}}</strong></td>
+                  <td :class="colorBasedonTest(testResults.totalCases.overDependency.score)"><strong>{{testResults.totalCases.overDependency.score}}</strong></td>
+                </tr>
                 <tr>
                   <th scope="row">Overall (detections/{{testResults.functions.length}} functions):</th>
                   <td :class="colorBasedonTest(testResults.positives.unsecuredCalls, testResults.functions.length)"><strong>{{testResults.positives.unsecuredCalls}} / {{testResults.functions.length}}</strong></td>
@@ -160,6 +166,14 @@
                 <tr><th>Dangerous Delegates</th><th></th></tr>
               </thead>
               <tbody>
+                <tr>
+                  <td scope="row">Ether Liquidity</th>
+                  <td :class="colorLiquidity(testResults.dangerousDelegates.noOtherOpcodes, testResults.dangerousDelegates.isPayable)">{{testResults.dangerousDelegates.liquidity}}</td>
+                </tr>
+                <tr>
+                  <td scope="row"><code>msg.data</code> in <code>delegatecall</code></th>
+                  <td :class="colorBasedonTest(testResults.dangerousDelegates.msgDataUsed, testResults.dangerousDelegates.delegateCallUsed)">{{testResults.dangerousDelegates.msgDataUsed}} / {{testResults.dangerousDelegates.delegateCallUsed}}</td>
+                </tr>
                 <tr>
                   <th scope="row">Overall:</th>
                   <td tabindex="0" role="button" v-popover:right="getMessages(testResults.dangerousDelegates.messages)" :class="colorBasedonTest(testResults.dangerousDelegates.score, testResults.dangerousDelegates.scoreLimit)"><strong>{{testResults.dangerousDelegates.score}} / {{testResults.dangerousDelegates.scoreLimit}}</strong></td>
@@ -189,22 +203,25 @@
                 <th scope="col">Mishandled Exceptions</th>
                 <th scope="col">Over-dependency</th>
                 <th scope="col">Dangerous Delegates</th>
+                <th scope="col">Total contracts</th>
               </tr>
             </thead>
             <tbody>
               <tr class="table-success">
-                <th scope="row">Negatives</td>
+                <th scope="row">Negative contracts</td>
                 <td>{{testAllResults.negatives.unsecuredCalls}}</td>
                 <td>{{testAllResults.negatives.mishandledErrors}}</td>
                 <td>{{testAllResults.negatives.overDependency}}</td>
                 <td>{{testAllResults.negatives.dangerousDelegates}}</td>
+                <th scope="row">{{getTotals(testAllResults.contracts, false)}}</th>
               </tr>
               <tr class="table-danger">
-                <th scope="row">Positives</td>
+                <th scope="row">Positive contracts</td>
                 <td>{{testAllResults.positives.unsecuredCalls}}</td>
                 <td>{{testAllResults.positives.mishandledErrors}}</td>
                 <td>{{testAllResults.positives.overDependency}}</td>
                 <td>{{testAllResults.positives.dangerousDelegates}}</td>
+                <th scope="row">{{getTotals(testAllResults.contracts, true)}}</th>
               </tr>
             </tbody>
           </table>
@@ -219,7 +236,7 @@
           <b-pagination
           v-model="currentTable"
           :total-rows="rows(testAllResults.contracts)"
-          :per-page="10"
+          :per-page="perPage"
           align="left"
         ></b-pagination>
         </div>
@@ -227,16 +244,19 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Contract</th>
-                <th scope="col">Unsecured calls</th>
-                <th scope="col">Mishandled Exceptions</th>
-                <th scope="col">Over-dependency</th>
+                <th scope="col">Contract
+                  <label class="form-check-label" for="showPositiveContracts"><small>Show Positives Only</small></label>
+                  <input type="checkbox" name="showPositiveContracts" :checked="showPositiveContracts" @input="showPositiveContracts = $event.target.checked"> 
+                </th>
+                <th scope="col">Unsecured calls / func</th>
+                <th scope="col">Mishandled Exceptions / func</th>
+                <th scope="col">Over-dependency / func</th>
                 <th scope="col">Dangerous Delegates</th>
               </tr>
             </thead>
             <tbody>
-              <tr tabindex="0" role="button" v-for="contract in paginate(testAllResults.contracts, currentTable, 10)" @click="contractToView = contract" data-toggle="modal" data-target="#contractSelectedModal">
-                <th scope="row"><code>{{contract.name}}</code></td>
+              <tr tabindex="0" role="button" v-for="contract in paginateContracts(testAllResults.contracts, currentTable, perPage)" @click="contractToView = contract" data-toggle="modal" data-target="#contractSelectedModal">
+                <th scope="row"><code>{{contract.index}}. {{contract.name}}</code></td>
                   <td :class="colorBasedonTest(contract.positives.unsecuredCalls, contract.functions.length)"><strong>{{contract.positives.unsecuredCalls}} / {{contract.functions.length}}</strong></td>
                   <td :class="colorBasedonTest(contract.positives.mishandledErrors, contract.functions.length)"><strong>{{contract.positives.mishandledErrors}} / {{contract.functions.length}}</strong></td>
                   <td :class="colorBasedonTest(contract.positives.overDependency, contract.functions.length)"><strong>{{contract.positives.overDependency}} / {{contract.functions.length}}</strong></td>
@@ -266,8 +286,8 @@
               </ol>
               <b-pagination
                 v-model="currentList"
-                :total-rows="rows(contractNames)"
-                :per-page="10"
+                :total-rows="rowsNames(contractNames)"
+                :per-page="perPage"
                 align="center"
               ></b-pagination>
             </div>
@@ -302,23 +322,32 @@
             <div class="row">
               <div class="col-lg-12 table-responsive">
                 <table class="table cell-hover table-bordered">
-                  <thead>
+                  <thead> 
                     <tr>
-                      <th scope="col">Function</th>
+                      <th scope="col">Function 
+                          <label class="form-check-label" for="showPositives"><small>Show Positives Only</small></label>
+                          <input type="checkbox" name="showPositives" :checked="showPositives" @input="showPositives = $event.target.checked"> 
+                      </th>
                       <th scope="col">Unsecured calls</th>
                       <th scope="col">Mishandled Exceptions</th>
                       <th scope="col">Over-dependency</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="func in contractToView.functions">
+                    <tr v-for="func in filteredFunctions(contractToView.functions)">
                       <th scope="row"><code>{{func.name}}</code></th>
-                      <td tabindex="0" role="button" v-popover:right="getMessages(func.unsecuredCalls.messages)" :class="colorBasedonTest(func.unsecuredCalls.score, func.unsecuredCalls.scoreLimit)">{{func.unsecuredCalls.score}} / {{func.unsecuredCalls.scoreLimit}}</td>
-                      <td tabindex="0" role="button" v-popover:right="getMessages(func.mishandledErrors.messages)" :class="colorBasedonTest(func.mishandledErrors.score, func.mishandledErrors.scoreLimit)">{{func.mishandledErrors.score}} / {{func.mishandledErrors.scoreLimit}}</td>
-                      <td tabindex="0" role="button" v-popover:right="getMessages(func.overDependency.messages)" :class="colorBasedonTest(func.overDependency.score, func.overDependency.scoreLimit)">{{func.overDependency.score}} / {{func.overDependency.scoreLimit}}</td>
+                      <td :id="func.name" role="button" v-popover:right="getMessages(func.unsecuredCalls.messages)" :class="colorBasedonTest(func.unsecuredCalls.score, func.unsecuredCalls.scoreLimit)">{{func.unsecuredCalls.score}} / {{func.unsecuredCalls.scoreLimit}}</td>
+                      <td :id="func.name" role="button" v-popover:right="getMessages(func.mishandledErrors.messages)" :class="colorBasedonTest(func.mishandledErrors.score, func.mishandledErrors.scoreLimit)">{{func.mishandledErrors.score}} / {{func.mishandledErrors.scoreLimit}}</td>
+                      <td :id="func.name" role="button" v-popover:right="getMessages(func.overDependency.messages)" :class="colorBasedonTest(func.overDependency.score, func.overDependency.scoreLimit)">{{func.overDependency.score}}</td>
                     </tr>
                   </tbody>
                   <tfoot>
+                    <tr>
+                      <th scope="row">Total cases:</th>
+                      <td :class="colorBasedonTest(contractToView.totalCases.unsecuredCalls.score)"><strong>{{contractToView.totalCases.unsecuredCalls.score}} / {{contractToView.totalCases.unsecuredCalls.scoreLimit}}</strong></td>
+                      <td :class="colorBasedonTest(contractToView.totalCases.mishandledErrors.score)"><strong>{{contractToView.totalCases.mishandledErrors.score}} / {{contractToView.totalCases.mishandledErrors.scoreLimit}}</strong></td>
+                      <td :class="colorBasedonTest(contractToView.totalCases.overDependency.score)"><strong>{{contractToView.totalCases.overDependency.score}}</strong></td>
+                    </tr>
                     <tr>
                       <th scope="row">Overall (detections/{{contractToView.functions.length}} functions):</th>
                       <td :class="colorBasedonTest(contractToView.positives.unsecuredCalls, contractToView.functions.length)"><strong>{{contractToView.positives.unsecuredCalls}} / {{contractToView.functions.length}}</strong></td>
@@ -336,6 +365,16 @@
                     <tr><th>Dangerous Delegates</th><th></th></tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td scope="row">Ether Liquidity</th>
+                      <td :class="colorLiquidity(contractToView.dangerousDelegates.noOtherOpcodes, contractToView.dangerousDelegates.isPayable)">{{contractToView.dangerousDelegates.liquidity}}</td>
+                    </tr>
+                    <tr>
+                      <td scope="row"><code>msg.data</code> in <code>delegatecall</code></th>
+                      <td :class="colorBasedonTest(contractToView.dangerousDelegates.msgDataUsed, contractToView.dangerousDelegates.delegateCallUsed)">{{contractToView.dangerousDelegates.msgDataUsed}} / {{contractToView.dangerousDelegates.delegateCallUsed}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
                     <tr>
                       <th scope="row">Overall:</th>
                       <td tabindex="0" role="button" v-popover:right="getMessages(contractToView.dangerousDelegates.messages)" :class="colorBasedonTest(contractToView.dangerousDelegates.score, contractToView.dangerousDelegates.scoreLimit)"><strong>{{contractToView.dangerousDelegates.score}} / {{contractToView.dangerousDelegates.scoreLimit}}</strong></td>
@@ -386,7 +425,8 @@
   <!--sse.js for test all/compilation progress feedback and axios-->
   <script type="text/javascript" src="js/assets/sse/sse.js"></script>
   <script type="text/javascript" src="js/assets/axios/dist/axios.min.js"></script>
-  <!--Main script. Note, no vue components are used for this app-->
+  <!--Main script and components-->
   <script type = "text/javascript" src="js/app.js"></script>
+  <script type = "text/javascript" src="js/chartComponents.js"></script>
 </body>
 </html>

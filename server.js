@@ -97,19 +97,17 @@ app.post('/file_upload', function (req, res) {
                 exec('truffle compile', (error, stdout, stderr) => {
                     console.log(`exec stdout: ${stdout}`);
                     response.compileResults.message = stdout.toString();
-                    if (error || stderr) {
-                        if(error) {
+                    if (error) {
                             console.error(`exec error: ${error}`);
                             response.compileResults.message =+ error.toString();
-                        }
+                            response.compileResults.success = false;
+                            response.message += " but compilation failed";
+                            res.send(response);
+                    } else {
                         if(stderr) {
-                            console.error(`exec stdrror: ${stderr}`);
+                            console.error(`exec stderr: ${stderr}`);
                             response.compileResults.message =+ stderr.toString();
                         }
-                        response.compileResults.success = false;
-                        response.message += " but compilation failed";
-                        res.send(response);
-                    } else {
                         response.compileResults.success = true;
                         response.message += " and compiled successfully";
                         //3. Send the "upload successful" response back
@@ -131,9 +129,9 @@ app.post('/select_test', function(req, res) {
     //2. aggregate the results to highlight detections throughout all functions 
     let finalResults = {
         contract: results,
-        message: 'Code Parser testing completed'
+        message: 'Code Parser testing completed on ' + req.body.contractName 
     };
-    console.log("Code Parser testing completed on ", req.body.contractName);
+    console.log("Code Parser testing completed on", req.body.contractName);
     //3. Package the results and send it back to the app
     res.send(finalResults);
 });
@@ -169,19 +167,17 @@ app.get('/compile_contracts', function (req, res) {
     exec('truffle compile', (error, stdout, stderr) => {
         console.log(`exec stdout: ${stdout}`);
         response.compileResults.message = stdout.toString();
-        if(error || stderr){
-            if (error) {
-                console.error(`exec error: ${error}`);
-                response.compileResults.message =+ error.toString();
-            }
-            if(stderr) {
-                console.error(`exec stderr: ${stderr}`);
-                response.compileResults.message =+ stderr.toString();
-            }
+        if(error){
+            console.error(`exec error: ${error}`);
+            response.compileResults.message =+ error.toString();
             response.compileResults.success = false;
             response.message = "Compilation failed";
             res.send(response);
         } else {
+            if(stderr) {
+                console.error(`exec stderr: ${stderr}`);
+                response.compileResults.message =+ stderr.toString();
+            }
             response.compileResults.success = true;
             //2. get contract names
             if (!fs.existsSync(contractDir)){
@@ -222,7 +218,7 @@ app.post('/test_all_contracts', async function (req, res) {
     });   
 
     for(; i < max; i++) {
-        await new Promise(resolve => setTimeout(resolve, 10));
+        await new Promise(resolve => setTimeout(resolve, 10)); //tiny delay of 10ms
         console.log('Testing', contracts[i]);
         //Stream the progress of testing to the frontend. Status event is purely for marking what is currently being tested
         res.write(`event: status\ndata: ${i+1}. Testing ${contracts[i]}\n\n`);
@@ -230,7 +226,7 @@ app.post('/test_all_contracts', async function (req, res) {
     }
 
     //Once finish, aggregate the results, send the final results and end the stream
-    if(i === max) {
+    if(i === max && results) {
         let finalResults = this.aggregateTotals(results);
         res.write(`event: gotTestResults\ndata:${JSON.stringify(finalResults)}\n\n`);
         return res.end();
@@ -238,6 +234,12 @@ app.post('/test_all_contracts', async function (req, res) {
 });
 //Aggregates the results from test_all_contracts. Expect positive/negative detection counts
 aggregateTotals = function(results) {
+    //add indexes to the list of contracts for easy tracking on the UI
+    for(index=0;index<results.length;index++) {
+        results[index].index = index+1;
+    }
+
+    //Set the final object to send back
     let finalResults = {
         contracts: results,
         numOfContracts: results.length, 
@@ -249,6 +251,7 @@ aggregateTotals = function(results) {
         }
     };
 
+    //Aggregate the counts of positives and negative contracts by checking each contract's scores
     for(let i=0;i<results.length;i++) {
         if(results[i].positives.unsecuredCalls > 0) { finalResults.positives.unsecuredCalls++; } else { finalResults.negatives.unsecuredCalls++; }
         if(results[i].positives.mishandledErrors > 0) { finalResults.positives.mishandledErrors++; } else { finalResults.negatives.mishandledErrors++; }
@@ -256,7 +259,7 @@ aggregateTotals = function(results) {
         if(results[i].dangerousDelegates.score > 0) { finalResults.positives.dangerousDelegates++; } else { finalResults.negatives.dangerousDelegates++; }
     }
 
-    return finalResults;
+    return finalResults; //return back the final results
 };
 
 /*Set up the server to listen to 8081, and perform a function*/

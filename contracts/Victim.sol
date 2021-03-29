@@ -139,5 +139,31 @@ contract Victim {
     function delegateCallTest() public {
         msg.sender.delegatecall("");
         (bool success,) = msg.sender.delegatecall("");
+
+        if(true) {
+
+        } else if (false) {
+            
+        }
+    }
+
+    function loops() public {
+        uint i;
+        for(i=0;i<10;i++){
+            uint hello = 2;
+            msg.sender.send(1);
+        }
+
+        while(i < 11) {
+            i++;
+        }
+
+        do {
+            i++;
+        } while(i <= 12);
+
+        if(msg.sender.send(1)) {
+            uint hello = 3;
+        }
     }
 }

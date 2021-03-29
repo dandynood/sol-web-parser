@@ -18,9 +18,9 @@ var app = new Vue({
   el: '#app',
   data: function() { 
     return { 
-      fileinput: '', errors: '', consoleOutput: '', loading: true, 
+      fileinput: '', errors: '', consoleOutput: 'Ready', loading: true, 
       contractNames: [], selectedContract: '', testResults: {}, testAllResults: {}, 
-      resultView: '', status: '', contractToView: {},
+      resultView: '', status: '', contractToView: {}, showPositives: false, showPositiveContracts: false,
       currentList: 1, currentTable: 1, perPage: 10, progress: 0 //for paginations
     };
   },
@@ -49,6 +49,13 @@ var app = new Vue({
     });
   },
   methods: {
+    resetFields() {
+      this.loading = false;
+      this.status = '';
+      this.testResults = {};
+      this.testAllResults = {};
+      this.showPositives = false;      
+    },
     //same as in mounted as it may be called later after file_upload
     getCompiledContractNames() {
       let object = this;
@@ -87,8 +94,7 @@ var app = new Vue({
         }
       }).then(function(response){
         object.consoleOutput = response.data.message;
-        object.loading = false;
-        object.status = '';
+        object.resetFields();
       }).catch(function(error){
         object.errors = error.response.data.message;
         object.loading = false;
@@ -104,10 +110,9 @@ var app = new Vue({
       this.loading = true;
       let object = this;
       await axios.get('/compile_contracts').then(function(response){
-        object.contractNames = response.data.contractNames;
+        object.getCompiledContractNames();
         object.consoleOutput = response.data.message;
-        object.loading = false;
-        object.status = '';
+        object.resetFields();
       }).catch(function(error){
         console.log("Error:", error);
         object.errors = error.response.data;
@@ -129,12 +134,9 @@ var app = new Vue({
         }
       }).then(function(response){
         object.consoleOutput = response.data.message;
-        object.testResults = {};
-        object.testAllResults = {};
+        object.resetFields();
         object.testResults = response.data.contract; delete response.data;
         object.resultView = "Table";
-        object.loading = false;
-        object.status = '';
       }).catch(function(error){
         object.errors = error.response.data.message;
         object.loading = false;
@@ -165,6 +167,7 @@ var app = new Vue({
       es.addEventListener('gotTestResults', message => {
         object.testResults = {};
         object.testAllResults = {};
+        object.showPositives = false;
         object.testAllResults = JSON.parse(message.data); delete message.data;
         object.resultView = "Overall";
         console.log('Got all test results!');
@@ -190,14 +193,40 @@ var app = new Vue({
       es.stream();
     },
 
+    //Filters for either all functions of a tested contract, or only positive results
+    filteredFunctions(functions) {
+      if(this.showPositives) {
+        return  functions.filter(func => {
+          if(func.unsecuredCalls.score > 0 || func.mishandledErrors.score > 0 || func.overDependency.score > 0) {
+            return func;
+          }
+        });
+      } else {
+        return functions;
+      }
+    },
+
     //Assign bootstrap contextual classes to table cells in the table result view
     colorBasedonTest(score, limit) {
-      var result = [];
-      if(score === 0 || limit === 0) {
+      let result = [];
+      if(score === 0) {
         result.push('table-success');
-      } else if (score > 0 && score < limit) {
+      } /* else if (score > 0 && score < limit) {
         result.push('table-warning');
-      } else if(score === limit) {
+      } */ else if(score > 0) {
+        result.push('table-danger');
+      }
+      return result;
+    },
+
+    colorLiquidity(noOpcode, payable) {
+      
+      let result = [];
+      if(!noOpcode || !payable) {
+        result.push('table-success');
+      } /* else if (score > 0 && score < limit) {
+        result.push('table-warning');
+      } */ else if(noOpcode && payable) {
         result.push('table-danger');
       }
       return result;
@@ -211,174 +240,97 @@ var app = new Vue({
         (messages[i].type === "warning") ? '<span class="badge badge-warning">' + messages[i].msg + '</span>' : 
         '<span class="badge badge-success">' + messages[i].msg + '</span>';
       }
-      return {
+      let result = {
         title: "Additional info",
         msgs: formattedMsgs
       };
+
+      return result;
+    },
+
+    rowsNames(arrays) {
+      return arrays.length;
     },
 
     rows(arrays) {
-      return arrays.length;
+      if(this.showPositiveContracts) {
+        return arrays.filter(contract => {
+          if(contract.positives.unsecuredCalls > 0 || 
+            contract.positives.mishandledErrors > 0 || 
+            contract.positives.overDependency > 0 || 
+            contract.dangerousDelegates.score > 0) {
+            return contract;
+          }
+        }).length;
+      } else {
+        return arrays.length;
+      }
     },
-    paginate(arrays, currentPage, perPage) {
+
+    getTotals(contracts, positive) {
+      let positiveCount = contracts.filter(contract => {
+        if(contract.positives.unsecuredCalls > 0 || 
+          contract.positives.mishandledErrors > 0 || 
+          contract.positives.overDependency > 0 || 
+          contract.dangerousDelegates.score > 0) {
+          return contract;
+        }
+      }).length;
+      
+      if(positive) {
+        return positiveCount;
+      } else {
+        return contracts.length - positiveCount;
+      }      
+    },
+
+    paginate(arrays, currentPage, perPage) { 
       return arrays.slice(
         (currentPage - 1) * perPage,
         currentPage * perPage,
       );
     },
+
+    paginateContracts(arrays, currentPage, perPage) { 
+      if(this.showPositiveContracts) {
+        return arrays.filter(contract => {
+          if(contract.positives.unsecuredCalls > 0 || 
+            contract.positives.mishandledErrors > 0 || 
+            contract.positives.overDependency > 0 || 
+            contract.dangerousDelegates.score > 0) {
+            return contract;
+          }
+        }).slice(
+          (currentPage - 1) * perPage,
+          currentPage * perPage,
+        );
+      } else {
+        return arrays.slice(
+          (currentPage - 1) * perPage,
+          currentPage * perPage,
+        );
+      }
+    },
+    
     //used for the test all confirmation modal list
     startAt(currentPage, perPage) {
       return ((currentPage - 1) * perPage) + 1;
-    }
+    },
   }
 });
 
-//for the popovers on the table view
+//for the bootstrap popovers on the table view
 Vue.directive('popover', function(el, binding){
-  $(el).popover({
+  let popoverArg = {};
+  popoverArg = {
     title: binding.value.title,
     content: binding.value.msgs,
     placement: binding.arg,
     trigger: 'click',
     html: true            
-  });
-});
+  };
 
-//vue-chartjs implementation for selectAndTest() graph view
-Vue.component('testresult-chart', {
-  extends: VueChartJs.Bar,
-  props: ['results'],
-  data: function() {
-    return {
-      UCCount: this.results.positives.unsecuredCalls,
-      MECount: this.results.positives.mishandledErrors,
-      ODCount: this.results.positives.overDependency,
-      DDCount: this.results.dangerousDelegates.score,
-      DDLimit: this.results.dangerousDelegates.scoreLimit,
-      functionCount: this.results.functions.length,
-    };
-  },
-  mounted () {
-    this.renderChart({
-      labels: ['Unsecured Calls','Mishandled Errors','Over-dependency','Dangerous Delegate'],
-      datasets: [
-        {
-          backgroundColor: '#f5c6cb',
-          borderColor: '#dc3545', borderWidth: '2',
-          data: [this.UCCount, this.MECount, this.ODCount, this.DDCount],
-          labels: [this.functionCount, this.functionCount, this.functionCount, this.DDLimit]
-        }
-      ]
-    }, {
-      responsive: true, 
-      maintainAspectRatio: false,
-      tooltips: {enabled: false},
-      legend: {display: false},
-      layout: {
-        padding: {
-            left: 0,
-            right: 0,
-            top: 30,
-            bottom: 0
-        }
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            stepSize: 1, max : this.functionCount
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'Functions'
-          }
-        }]
-      },
-      plugins: {
-        datalabels: {
-          anchor: 'end',
-          align: 'top',
-          formatter: function(value, context) {
-            return value + " / " + context.dataset.labels[context.dataIndex];
-          },
-          font: {
-            weight: 'bold'
-          }
-        }
-      }
-    });
-  }
-});
+  $(el).popover('dispose'); //destory any previously created popover so that content changes can be shown (otherwise it will retain any previous popover)
+  $(el).popover(popoverArg);
 
-//vue-chartjs implementation for a Test All Contracts graph view
-Vue.component('testall-chart', {
-  extends: VueChartJs.Bar,
-  props: ['results'],
-  data: function() {
-    return {
-      positives: this.results.positives,
-      negatives: this.results.negatives,
-      numOfContracts: this.results.numOfContracts
-    };
-  },
-  mounted () {
-    this.renderChart({
-      labels: ['Unsecured Calls','Mishandled Errors','Over-dependency','Dangerous Delegate'],
-      datasets: [
-        {
-          backgroundColor: '#f5c6cb',
-          borderColor: '#dc3545', borderWidth: '2',
-          data: [this.positives.unsecuredCalls, this.positives.mishandledErrors, this.positives.overDependency, this.positives.dangerousDelegates],
-          label: "Positives"
-        },
-        {
-          backgroundColor: '#c3e6cb',
-          borderColor: '#28a745', borderWidth: '2',
-          data: [this.negatives.unsecuredCalls, this.negatives.mishandledErrors, this.negatives.overDependency, this.negatives.dangerousDelegates],
-          label: "Negatives"
-        }
-      ]
-    }, {
-      responsive: true, 
-      maintainAspectRatio: false,
-      tooltips: {
-        enabled: true,
-        mode: 'label',
-        callbacks: {
-          label: function(item, data) {
-            var dstLabel = data.datasets[item.datasetIndex].label;
-            var yLabel = item.yLabel;
-            return dstLabel + ': ' + yLabel;
-          }
-        },
-        itemSort: function(a, b) {
-          return b.datasetIndex - a.datasetIndex;
-        }
-      },
-      legend: {display: true},
-      layout: {
-        padding: {
-            left: 0,
-            right: 0,
-            top: 10,
-            bottom: 0
-        }
-      },
-      scales: {
-        xAxes: [{ stacked: true, ticks: { stepSize: 1 }}],
-        yAxes: [{ stacked: true, ticks: { stepSize: 1, max : this.numOfContracts}, 
-          scaleLabel: {
-            display: true,
-            labelString: 'Contracts'
-          }
-        }]
-      },
-      plugins: {
-        datalabels: {
-          font: {
-            weight: 'bold'
-          }
-        }
-      }
-    });
-  }
 });

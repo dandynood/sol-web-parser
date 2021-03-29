@@ -3,7 +3,18 @@
 const chalk = require('chalk');
 const stripAnsi = require('strip-ansi');
 
-const resultCSVexporter = require("./resultCSVexporter.js");
+/* Proof-reader controller V1, Last updated: 29/12/2020
+This module is mainly a handler to load the necessary test case modules (of each design flaw category) and send the extracted AST for test. This is the 2nd step of the Code Parser
+Each test module should return the same given AST but ammended their test results.
+Once all test is completed the proof reader will: 
+    1) Print the results on the terminal of the running Node instance.
+    2) Most importantly, aggregate the results to get the positive detection scores. 
+    This will take the results from the test modules, and count how many functions have a score > 0 grouped by each design flaw category.
+    Hence, two sets of results will be expected being the detailed results of test cases from the test modules, and the positive count scores.
+
+    3) strip away the sequence of the function to lower its size when sending it back to the browser interface
+
+*/
 
 //Will print out the scores of each function
 //This will also strip the ANSI formatting of the messages for later in the browser view
@@ -30,6 +41,7 @@ printResultsAndTotal = function (contract) {
     }
 
     if(contract.functions.length > 1) {
+        console.log("\nContract test:", chalk.yellow(contract.name));
         console.log("Dangerous Delegates Score:", contract.dangerousDelegates.score, "/", contract.dangerousDelegates.scoreLimit);
         for(let y=0;y<contract.dangerousDelegates.messages.length;y++) {
             console.log(contract.dangerousDelegates.messages[y].msg);
@@ -37,7 +49,7 @@ printResultsAndTotal = function (contract) {
         }
     }
 };
-//Aggregates the results by counting how many positive detections there are
+//Aggregates the results by counting how many positive detections there are per function
 getPositiveDetections = function(contract) {
     contract.positives = {unsecuredCalls:0, mishandledErrors:0, overDependency:0};
     for(let i=0;i<contract.functions.length;i++) {
@@ -46,13 +58,29 @@ getPositiveDetections = function(contract) {
         if(contract.functions[i].overDependency.score > 0) { contract.positives.overDependency++; }
     }
 };
+//Aggregates the results by counting the number of cases per design flaw for the whole contract
+getPositiveCases = function(contract) {
+    contract.totalCases = { 
+        unsecuredCalls:{score: 0, scoreLimit: 0}, 
+        mishandledErrors:{score: 0, scoreLimit: 0}, 
+        overDependency:{score: 0, scoreLimit: 0}
+    };
+
+    for(let i=0;i<contract.functions.length;i++) {
+        contract.totalCases.unsecuredCalls.scoreLimit += contract.functions[i].unsecuredCalls.scoreLimit;
+        contract.totalCases.mishandledErrors.scoreLimit += contract.functions[i].mishandledErrors.scoreLimit;
+
+        if(contract.functions[i].unsecuredCalls.score > 0) { contract.totalCases.unsecuredCalls.score += contract.functions[i].unsecuredCalls.score; }
+        if(contract.functions[i].mishandledErrors.score > 0) { contract.totalCases.mishandledErrors.score += contract.functions[i].mishandledErrors.score; }
+        if(contract.functions[i].overDependency.score > 0) { contract.totalCases.overDependency.score += contract.functions[i].overDependency.score; }
+    }    
+};
 //This simply is used to trim down the sequence property from each function for simplicity for the response
 trimSequence = function (contract) {
     let result = JSON.parse(JSON.stringify(contract));
     for(let i=0;i<result.functions.length;i++){
         delete result.functions[i].sequence;
     }
-
     return result;
 };
 
@@ -74,14 +102,13 @@ module.exports = {
         mishandledErrors.test(contract.functions);
         overDependency.test(contract.functions);
 
-        //For Dangerous Delegates, it needs the entire contract code to test for delegatecalls. S   kip if testing individual function 
-        if(contract.functions.length > 1) {
-            dangerousDelegates.test(contract, contractAST.payable);
-        }
+        //For Dangerous Delegates, it needs the entire contract code to test for delegatecalls.
+        dangerousDelegates.test(contract, contractAST.payable);
 
         //Print results to the shell. Also helps to total up the scores from all functions.
         printResultsAndTotal(contract);
         getPositiveDetections(contract);
+        getPositiveCases(contract);
         let result = trimSequence(contract);
         return result;
 
